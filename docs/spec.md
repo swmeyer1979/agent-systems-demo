@@ -111,3 +111,17 @@ Acceptance criteria:
 - The image is stored in the repo instead of hotlinking a local generated-image path.
 - The README references the asset with a relative path so GitHub renders it.
 - The graphic appears after the short project description and before the detailed explanation.
+
+## README Usage Addendum
+
+Objective: explain how the harness would be used and when it is helpful.
+
+Files:
+
+- `README.md`
+
+Acceptance criteria:
+
+- The section describes adaptation steps, not a product pitch.
+- Scenarios are concrete: regulated workflows, long-running agents, eval development, debugging, and teaching.
+- The section states the production boundary plainly: this is a reference harness, not full orchestration infrastructure.

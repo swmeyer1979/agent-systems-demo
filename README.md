@@ -15,6 +15,29 @@ This is not a framework and not a chatbot. It keeps the moving parts visible: a 
 - **Eval gates:** `make eval` runs concept, trajectory, report-quality, and end-state checks.
 - **Offline defaults:** no API key, cloud account, or hosted tracing service required.
 
+## How It Is Used
+
+Use this as a reference harness when the hard part is not whether a model can answer once, but whether an agent can run, stop, resume, leave evidence, and fail under tests.
+
+Typical adaptation path:
+
+1. Keep the run shape: `plan -> search -> read -> draft -> check -> write`.
+2. Replace the toy local tools with real tools: ticket lookup, document retrieval, CRM reads, code search, policy lookup, or workflow actions.
+3. Replace the deterministic planner and drafter with an OpenAI, Anthropic, LangGraph, or local-model adapter.
+4. Keep the SQLite checkpoints, JSONL traces, explicit tool registry, and eval gates.
+5. Run the eval suite in CI so behavior drift is caught before the agent touches real workflows.
+
+Scenarios where this pattern helps:
+
+- Internal agent prototypes where reliability matters before scale.
+- Regulated workflows that need audit trails, citations, review gates, and bounded tools.
+- Long-running agents that may be interrupted and need checkpointed resume.
+- Agent eval development: checking tool sequence, required citations, final artifacts, and report quality.
+- Debugging a bad run by inspecting what the agent read, which tool it called, and where it failed.
+- Teaching the core mechanics of agent systems without hiding everything behind a larger framework.
+
+It is not enough by itself for production-scale orchestration. A serious deployment would usually move pieces into Postgres, queue workers, Temporal or LangGraph durable execution, OpenTelemetry, real auth, sandboxing, and environment-specific policy controls.
+
 ## Non-goals
 
 - No foundation-model research.
