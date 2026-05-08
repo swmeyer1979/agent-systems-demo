@@ -1,4 +1,4 @@
-# Agent Systems Proof
+# Agent Systems Demo
 
 Small offline harness for checkpointed agent runs, local tools, JSONL traces, and eval gates.
 
