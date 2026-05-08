@@ -1,0 +1,14 @@
+.runs/
+.pytest_cache/
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+dist/
+build/
+
+# Generated proof artifacts. These are reproducible with make targets.
+workspace/
+traces/
+eval_results/
+
