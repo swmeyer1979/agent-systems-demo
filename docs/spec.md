@@ -96,3 +96,18 @@ Acceptance criteria:
 - Prefer concrete nouns: SQLite state, JSONL traces, local tools, eval gates.
 - Keep claims bounded to checkpointed stop/resume, not crash recovery.
 - Keep site copy short and descriptive rather than promotional.
+
+## README Graphic Addendum
+
+Objective: add one restrained technical graphic near the top of `README.md`.
+
+Files:
+
+- `README.md`
+- `docs/assets/agent-systems-proof-graphic.png`
+
+Acceptance criteria:
+
+- The image is stored in the repo instead of hotlinking a local generated-image path.
+- The README references the asset with a relative path so GitHub renders it.
+- The graphic appears after the short project description and before the detailed explanation.

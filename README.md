@@ -2,6 +2,8 @@
 
 Small offline harness for checkpointed agent runs, local tools, JSONL traces, and eval gates.
 
+![Agent Systems Proof execution diagram](docs/assets/agent-systems-proof-graphic.png)
+
 This is not a framework and not a chatbot. It keeps the moving parts visible: a step loop, a local source corpus, explicit tool calls, SQLite state, trace records, and deterministic gates.
 
 ## What It Contains
