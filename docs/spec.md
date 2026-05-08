@@ -4,14 +4,14 @@ Date: 2026-05-08
 
 ## Objective
 
-Build a small public-ready repository that proves practical agent-systems competence:
-tool use, stateful execution, durable resume, trace output, eval coverage, and clear engineering judgment.
+Build a small offline harness for checkpointed agent runs:
+tool use, stateful execution, durable resume, trace output, and eval coverage.
 
-This is not a toy chatbot and not a framework tour. It is a compact harness-shaped demo that a technical reviewer can clone, run, inspect, and extend.
+This is not a chatbot and not a framework tour. It is a compact harness that can be cloned, run, inspected, and extended.
 
 ## Files
 
-- `README.md` - recruiter/engineer-facing explanation and commands.
+- `README.md` - technical explanation and commands.
 - `Makefile` - stable entry points: `make demo`, `make resume-proof`, `make eval`, `make test`, `make clean`.
 - `pyproject.toml` - package metadata and Python version.
 - `agent_systems_proof/` - CLI, harness, agent, tools, storage, tracing, eval logic.
@@ -78,10 +78,21 @@ ls traces workspace/reports eval_results
 
 ## Review Remediation Addendum
 
-Subagent review found two proof-breaking path traversal bugs and two overclaim/coverage gaps. Before this repo is public-ready:
+Subagent review found two proof-breaking path traversal bugs and two overclaim/coverage gaps. Before release:
 
 - `run_id` and eval IDs must be constrained to a portable slug format before they touch trace, report, or database paths.
 - `source_id` must be constrained to local source slugs and resolved inside `docs/sources`.
 - Trajectory evals must check ordered tool calls and expected arguments, not just the presence of tool names.
 - The repo must describe the resume demo as checkpointed stop/resume unless a subprocess kill test is implemented.
 - Trace records must either include explicit cost estimates or the spec must stop promising them. For this offline harness, add explicit `estimated_cost_usd: 0.0`.
+
+## Positioning Addendum
+
+The public surface should read like a small technical harness, not a resume artifact.
+
+Acceptance criteria:
+
+- Avoid role-fit and self-marketing framing in the repo.
+- Prefer concrete nouns: SQLite state, JSONL traces, local tools, eval gates.
+- Keep claims bounded to checkpointed stop/resume, not crash recovery.
+- Keep site copy short and descriptive rather than promotional.

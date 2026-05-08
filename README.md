@@ -1,28 +1,24 @@
 # Agent Systems Proof
 
-Offline proof repo for durable agent loops, tool traces, eval gates, and checkpointed stop/resume behavior.
+Small offline harness for checkpointed agent runs, local tools, JSONL traces, and eval gates.
 
-Public repo: https://github.com/swmeyer1979/agent-systems-proof
+This is not a framework and not a chatbot. It keeps the moving parts visible: a step loop, a local source corpus, explicit tool calls, SQLite state, trace records, and deterministic gates.
 
-This is intentionally small. The point is not to call an LLM API and hope the demo looks clever. The point is to expose the harness mechanics that make agent systems production-ready.
+## What It Contains
 
-## What This Proves
+- **Tool registry:** source search, source read, and report write tools with narrow path rules.
+- **Checkpointing:** every step is recorded in SQLite before the next step starts.
+- **Resume:** a stopped run can continue from the next incomplete step.
+- **Trace records:** every step and tool call emits JSONL with status, latency, and estimated cost.
+- **Eval gates:** `make eval` runs concept, trajectory, report-quality, and end-state checks.
+- **Offline defaults:** no API key, cloud account, or hosted tracing service required.
 
-- **Tool use:** the agent searches local source files, reads selected documents, and writes a report through an explicit tool registry.
-- **Durability:** every step is checkpointed in SQLite. A stopped run resumes from the next incomplete step.
-- **Traceability:** every step and tool call emits JSONL trace records with status and latency.
-- **Evals:** `make eval` runs single-turn, trajectory, judge-style, and end-state gates.
-- **Guardrails:** write access is narrow, source reads are local, and report generation fails if the rubric does not pass.
-- **Cost discipline:** the default demo has zero model spend and a clear adapter boundary for a real model.
+## Non-goals
 
-## What This Does Not Prove
-
-- It does not prove foundation-model research ability.
-- It does not claim hosted LangSmith or Braintrust integration.
-- It does not benchmark against GAIA, SWE-bench, or tau-bench.
-- It does not pretend a deterministic offline planner is a frontier model.
-
-That restraint is deliberate. Fake trophies are cheap. Inspectable state is better.
+- No foundation-model research.
+- No benchmark claim against GAIA, SWE-bench, or tau-bench.
+- No hosted observability dependency.
+- No claim that the deterministic planner is a frontier model.
 
 ## Quickstart
 
@@ -36,7 +32,7 @@ make eval
 make test
 ```
 
-Inspect the evidence:
+Inspect the outputs:
 
 ```bash
 make inspect-db
@@ -65,7 +61,7 @@ Outputs:
 
 Runs the same agent with `--stop-after-step 3`, performs a checkpointed simulated stop, then resumes the same `run_id`.
 
-This proves the resume path:
+Resume path:
 
 1. create run
 2. finish plan/search/read checkpoints
@@ -125,7 +121,7 @@ Trace shape:
 
 ## Why Offline
 
-A public proof repo should run for a reviewer without secrets, credits, cloud setup, or vendor ceremony.
+The default path should run without secrets, credits, cloud setup, or vendor ceremony.
 
 The model boundary is intentionally boring. Swap `ResearchAgent._plan`, `_draft_report`, or the judge with a real Anthropic/OpenAI/LangGraph adapter when the task calls for it. The durable loop, state, trace, and eval gates stay the same.
 
